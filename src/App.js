@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+// import { type } from 'os';
+import React from 'react';
 import './App.css';
+import Form from './components/Form/Form';
+import Values from './components/Values/Values';
 
 function App() {
+
+  const [data,setdata] = React.useState([]);
+  function Adddata(obj)
+  {
+     setdata(prev=>{
+      return [...prev,obj]
+     });
+  }
+
+  function DeleteData(id)
+  {  
+     setdata(prev=>{
+      return prev.filter(item=>{
+        return item.Id !== id
+      })
+     })
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Form Adddata={Adddata} />
+      <Values OnDelete={DeleteData} List={data} />
     </div>
   );
 }
